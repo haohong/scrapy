@@ -3,6 +3,43 @@
 Release notes
 =============
 
+Scrapy 1.3.1 (2017-02-XX)
+-------------------------
+
+New features
+~~~~~~~~~~~~
+
+- Support ``'True'`` and ``'False'`` string values for boolean settings (:issue:`2519`);
+  you can now do something like ``scrapy crawl myspider -s REDIRECT_ENABLED=False``.
+- Support kwargs with ``response.xpath()`` to use :ref:`XPath variables <topics-selectors-xpath-variables>`
+  and ad-hoc namespaces declarations ;
+  this requires at least Parsel v1.1 (:issue:`2457`).
+- Add support for Python 3.6 (:issue:`2485`).
+- Run tests on PyPy (warning: some tests still fail, so PyPy is not supported yet).
+
+Bug fixes
+~~~~~~~~~
+
+- Enforce ``DNS_TIMEOUT`` setting (:issue:`2496`).
+- Fix :command:`view` command ; it was a regression in v1.3.0 (:issue:`2503`).
+- Fix tests regarding ``*_EXPIRES settings`` with Files/Images pipelines (:issue:`2460`).
+- Fix name of generated pipeline class when using basic project template (:issue:`2466`).
+- Fix compatiblity with Twisted 17+ (:issue:`2496`, :issue:`2528`).
+- Fix ``scrapy.Item`` inheritance on Python 3.6 (:issue:`2511`).
+
+Documentation
+~~~~~~~~~~~~~
+
+- Reword Code of Coduct section and upgrade to Contributor Covenant v1.4
+  (:issue:`2469`).
+- Clarify that passing spider arguments converts them to spider attributes
+  (:issue:`2483`).
+- Document ``formid`` argument on ``FormRequest.from_response()`` (:issue:`2497`).
+- Add .rst extension to README files (:issue:`2507`).
+- Mention LevelDB cache storage backend (:issue:`2525`).
+- Typos (:issue:`2512`, :issue:`2534`, :issue:`2531`).
+
+
 Scrapy 1.3.0 (2016-12-21)
 -------------------------
 
