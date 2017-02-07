@@ -22,6 +22,7 @@ from twisted.web.client import ResponseFailed
 from scrapy.exceptions import NotConfigured
 from scrapy.utils.response import response_status_message
 from scrapy.core.downloader.handlers.http11 import TunnelError
+from scrapy.utils.python import global_object_name
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +73,12 @@ class RetryMiddleware(object):
             retryreq.meta['retry_times'] = retries
             retryreq.dont_filter = True
             retryreq.priority = request.priority + self.priority_adjust
+
+            if isinstance(reason, Exception):
+                reason = global_object_name(reason.__class__)
+
             self.stats.inc_value('retry/count')
+            self.stats.inc_value('retry/reason_count/%s' % reason)
             return retryreq
         else:
             self.stats.inc_value('retry/stopped')
