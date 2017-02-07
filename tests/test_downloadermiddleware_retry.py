@@ -71,11 +71,9 @@ class RetryTest(unittest.TestCase):
         # discard it
         assert self.mw.process_response(req, rsp, self.spider) is rsp
 
-        assert self.crawler.stats.get_stats() == {
-            'retry/reason_count/503 Service Unavailable': 2,
-            'retry/stopped': 1,
-            'retry/count': 2,
-        }
+        assert self.crawler.stats.get_value('retry/stopped') == 1
+        assert self.crawler.stats.get_value('retry/reason_count/503 Service Unavailable') == 2
+        assert self.crawler.stats.get_value('retry/count') == 2
 
     def test_twistederrors(self):
         exceptions = [defer.TimeoutError, TCPTimedOutError, TimeoutError,
